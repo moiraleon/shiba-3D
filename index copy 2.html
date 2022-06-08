@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Project</title>
+</head>
+<body>
+    
+    <script src="three.js"></script>
+    <script type="module" src="GLTFLoader.js"></script>
+    <script type="module">
+        import {GLTFLoader} from "./GLTFLoader.js";
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(
+            75, window.innerWidth/window.innerHeight,0.01, 1000
+            );
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight)
+        document.body.appendChild(renderer.domElement)
+
+        //Creating the glTF loader
+
+        var loader = new GLTFLoader();
+        var obj;
+        //adding our custom gltf file
+        loader.load("Cutaway-Modern-1.gltf", function(gltf){
+           // obj = gltf.scene;//this is for rotatin
+            scene.add(gltf.scene);
+        });
+        //Changing background color
+        scene.background = new THREE.Color(0xFFFFFF)
+
+        //Addig lights to scene
+        var light = new THREE.HemisphereLight(0xffffff, 0x000000, 40);
+        scene.add(light);
+        //camera.position.set( <X> , <Y> , <Z> );
+        camera.position.set(0,2,10);
+
+        function animate(){
+            requestAnimationFrame(animate);
+            //For adding a rotation
+            // obj.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
