@@ -1,0 +1,4 @@
+utils.waitForElement('selector').then((function(elem){
+    var div = '';
+            elem.insertAdjacentHTML("beforebegin",div);
+}));
